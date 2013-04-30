@@ -321,7 +321,7 @@ function poll_footer_admin() {
 ### Function: Add Favourite Actions >= WordPress 2.7
 add_filter('favorite_actions', 'poll_favorite_actions');
 function poll_favorite_actions($favorite_actions) {
-       $favorite_actions['admin.php?page=wp-polls/polls-add.php'] = array(__('Add Poll', 'wp-polls'), 'manage_polls');
+       $favorite_actions['admin.php?page=add'] = array(__('Add Poll', 'wp-polls'), 'manage_polls');
        return $favorite_actions;
 }
 

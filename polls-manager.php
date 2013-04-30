@@ -28,8 +28,8 @@ if(!current_user_can('manage_polls')) {
 }
 
 ### Variables Variables Variables
-$base_name = plugin_basename('wp-polls/polls-manager.php');
-$base_page = 'admin.php?page='.$base_name;
+global $text_direction;
+$page_name = 'admin.php?page=wp-polls';
 $mode = (isset($_GET['mode']) ? trim($_GET['mode']) : '');
 $poll_id = (isset($_GET['id']) ? intval($_GET['id']) : 0);
 $poll_aid = (isset($_GET['aid']) ? intval($_GET['aid']) : 0);
@@ -164,7 +164,7 @@ switch($mode) {
 		$poll_answers = $wpdb->get_results("SELECT polla_aid, polla_answers, polla_votes FROM $wpdb->pollsa WHERE polla_qid = $poll_id ORDER BY polla_aid ASC");
 		$poll_noquestion = $wpdb->get_var("SELECT COUNT(polla_aid) FROM $wpdb->pollsa WHERE polla_qid = $poll_id");
 		$poll_question_text = stripslashes($poll_question->pollq_question);
-		$poll_totalvotes = intval($poll_question->pollq_totalvote);
+		$poll_totalvotes = intval($poll_question->pollq_totalvotes);
 		$poll_timestamp = $poll_question->pollq_timestamp;
 		$poll_active = intval($poll_question->pollq_active);
 		$poll_expiry = trim($poll_question->pollq_expiry);
@@ -174,7 +174,7 @@ switch($mode) {
 		<?php if(!empty($text)) { echo '<!-- Last Action --><div id="message" class="updated fade">'.stripslashes($text).'</div>'; } else { echo '<div id="message" class="updated" style="display: none;"></div>'; } ?>
 
 		<!-- Edit Poll -->
-		<form method="post" action="<?php echo admin_url('admin.php?page='.plugin_basename(__FILE__).'&amp;mode=edit&amp;id='.$poll_id); ?>">
+		<form method="post" action="<?php echo admin_url('admin.php?page=wp-polls&amp;mode=edit&amp;id='.$poll_id); ?>">
 		<?php wp_nonce_field('wp-polls_edit-poll'); ?>
 		<input type="hidden" name="pollq_id" value="<?php echo $poll_id; ?>" />
 		<input type="hidden" name="pollq_active" value="<?php echo $poll_active; ?>" />
@@ -412,8 +412,8 @@ switch($mode) {
 									_e('Closed', 'wp-polls');
 								}
 								echo "</td>\n";
-								echo "<td><a href=\"$base_page&amp;mode=logs&amp;id=$poll_id\" class=\"edit\">".__('Logs', 'wp-polls')."</a></td>\n";
-								echo "<td><a href=\"$base_page&amp;mode=edit&amp;id=$poll_id\" class=\"edit\">".__('Edit', 'wp-polls')."</a></td>\n";
+								echo "<td><a href=\"$page_name&amp;mode=logs&amp;id=$poll_id\" class=\"edit\">".__('Logs', 'wp-polls')."</a></td>\n";
+								echo "<td><a href=\"$page_name&amp;mode=edit&amp;id=$poll_id\" class=\"edit\">".__('Edit', 'wp-polls')."</a></td>\n";
 								echo "<td><a href=\"#DeletePoll\" onclick=\"delete_poll($poll_id, '".sprintf(esc_js(__('You are about to delete this poll, \'%s\'.', 'wp-polls')), esc_js($poll_question))."', '".wp_create_nonce('wp-polls_delete-poll')."');\" class=\"delete\">".__('Delete', 'wp-polls')."</a></td>\n";
 								echo '</tr>';
 								$i++;

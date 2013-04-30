@@ -28,8 +28,8 @@ if(!current_user_can('manage_polls')) {
 }
 
 ### Poll Manager
-$base_name = plugin_basename('wp-polls/polls-manager.php');
-$base_page = 'admin.php?page='.$base_name;
+$manage_page_name = 'admin.php?page=wp-polls';
+$page_name = 'admin.php?page=add';
 
 ### Form Processing 
 if(!empty($_POST['do'])) {
@@ -97,7 +97,7 @@ if(!empty($_POST['do'])) {
 			$latest_pollid = polls_latest_id();
 			$update_latestpoll = update_option('poll_latestpoll', $latest_pollid);
 			if(empty($text)) {
-				$text = '<p style="color: green;">'.sprintf(__('Poll \'%s\' Added Successfully.', 'wp-polls'), stripslashes($pollq_question)).' <a href="'.$base_page.'">'.__('Manage Polls', 'wp-polls').'</a></p>';
+				$text = '<p style="color: green;">'.sprintf(__('Poll \'%s\' Added Successfully.', 'wp-polls'), stripslashes($pollq_question)).' <a href="'.$manage_page_name.'">'.__('Manage Polls', 'wp-polls').'</a></p>';
 			}
 			cron_polls_place();
 			break;
@@ -109,7 +109,7 @@ $poll_noquestion = 2;
 $count = 0;
 ?>
 <?php if(!empty($text)) { echo '<!-- Last Action --><div id="message" class="updated fade">'.stripslashes($text).'</div>'; } ?>
-<form method="post" action="<?php echo admin_url('admin.php?page='.plugin_basename(__FILE__)); ?>">
+<form method="post" action="<?php echo admin_url($page_name); ?>">
 <?php wp_nonce_field('wp-polls_add-poll'); ?>
 <div class="wrap">
 	<div id="icon-wp-polls" class="icon32"><br /></div>

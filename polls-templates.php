@@ -22,8 +22,7 @@ if(!current_user_can('manage_polls')) {
 }
 
 ### Variables Variables Variables
-$base_name = plugin_basename('wp-polls/polls-templates.php');
-$base_page = 'admin.php?page='.$base_name;
+$page_name = 'admin.php?page=templates';
 $id = (isset($_GET['id']) ? intval($_GET['id']) : 0);
 
 ### If Form Is Submitted
@@ -149,7 +148,7 @@ if( isset($_POST['Submit']) && $_POST['Submit'] ) {
 /* ]]> */
 </script>
 <?php if(!empty($text)) { echo '<!-- Last Action --><div id="message" class="updated fade"><p>'.$text.'</p></div>'; } ?>
-<form id="poll_template_form" method="post" action="<?php echo admin_url('admin.php?page='.plugin_basename(__FILE__)); ?>">
+<form id="poll_template_form" method="post" action="<?php echo admin_url($page_name); ?>">
 <?php wp_nonce_field('wp-polls_templates'); ?>
 <div class="wrap">
 	<div id="icon-wp-polls" class="icon32"><br /></div>
