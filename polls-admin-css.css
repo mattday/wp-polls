@@ -26,6 +26,13 @@
 	height: 25px;
 	border: 1px solid #000000;
 }
-#icon-wp-polls {
-	background: transparent url(images/poll_admin_icon.png) no-repeat;
+#icon-wp-polls.icon32 {
+	background: transparent url(images/admin_icon.png) no-repeat;
+}
+#adminmenu #toplevel_page_wp-polls div.wp-menu-image {
+	background:url(images/admin_menu_icon.png) no-repeat 0 -32px;
+}
+#adminmenu #toplevel_page_wp-polls:hover div.wp-menu-image,
+#adminmenu #toplevel_page_wp-polls.wp-has-current-submenu div.wp-menu-image {
+	background-position:0 0;
 }

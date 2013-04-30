@@ -16,6 +16,11 @@
 +----------------------------------------------------------------+
 */
 
+### Polls Table Name
+global $wpdb;
+$wpdb->pollsq = $wpdb->prefix.'pollsq';
+$wpdb->pollsa = $wpdb->prefix.'pollsa';
+$wpdb->pollsip = $wpdb->prefix.'pollsip';
 
 ### Check Whether User Can Manage Polls
 if(!current_user_can('manage_polls')) {
@@ -108,7 +113,7 @@ $count = 0;
 <?php wp_nonce_field('wp-polls_add-poll'); ?>
 <div class="wrap">
 	<div id="icon-wp-polls" class="icon32"><br /></div>
-	<h2><?php _e('Add Poll', 'wp-polls'); ?></h2>
+	<h2><?php _e('Add a New Poll', 'wp-polls'); ?></h2>
 	<!-- Poll Question -->
 	<h3><?php _e('Poll Question', 'wp-polls'); ?></h3>
 	<table class="form-table">

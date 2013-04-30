@@ -16,6 +16,12 @@
 +----------------------------------------------------------------+
 */
 
+### Polls Table Name
+global $wpdb;
+$wpdb->pollsq = $wpdb->prefix.'pollsq';
+$wpdb->pollsa = $wpdb->prefix.'pollsa';
+$wpdb->pollsip = $wpdb->prefix.'pollsip';
+
 
 ### Check Whether User Can Manage Polls
 if(!current_user_can('manage_polls')) {

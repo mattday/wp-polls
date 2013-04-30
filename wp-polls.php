@@ -40,21 +40,50 @@ function polls_textdomain() {
 global $wpdb;
 $wpdb->pollsq = $wpdb->prefix.'pollsq';
 $wpdb->pollsa = $wpdb->prefix.'pollsa';
-$wpdb->pollsip	 = $wpdb->prefix.'pollsip';
+$wpdb->pollsip = $wpdb->prefix.'pollsip';
+
+
+### Function: Display Polls Manager Page
+function display_polls_manager_page() {
+	include 'polls-manager.php';
+}
+
+
+### Function: Display Polls Add Page
+function display_polls_add_page() {
+	include 'polls-add.php';
+}
+
+
+### Function: Display Polls Options Page
+function display_polls_options_page() {
+	include 'polls-options.php';
+}
+
+
+### Function: Display Polls Templates Page
+function display_polls_templates_page() {
+	include 'polls-templates.php';
+}
+
+
+### Function: Display Polls Uninstall Page
+function display_polls_uninstall_page() {
+	include 'polls-uninstall.php';
+}
 
 
 ### Function: Poll Administration Menu
 add_action('admin_menu', 'poll_menu');
 function poll_menu() {
 	if (function_exists('add_menu_page')) {
-		add_menu_page(__('Polls', 'wp-polls'), __('Polls', 'wp-polls'), 'manage_polls', 'wp-polls/polls-manager.php', '', plugins_url('wp-polls/images/poll.png'));
+		add_menu_page(__('Polls', 'wp-polls'), __('Polls', 'wp-polls'), 'manage_polls', 'wp-polls', 'display_polls_manager_page', 'div', '22.0');
 	}
 	if (function_exists('add_submenu_page')) {
-		add_submenu_page('wp-polls/polls-manager.php', __('Manage Polls', 'wp-polls'), __('Manage Polls', 'wp-polls'), 'manage_polls', 'wp-polls/polls-manager.php');
-		add_submenu_page('wp-polls/polls-manager.php', __('Add Poll', 'wp-polls'), __('Add Poll', 'wp-polls'), 'manage_polls', 'wp-polls/polls-add.php');
-		add_submenu_page('wp-polls/polls-manager.php', __('Poll Options', 'wp-polls'), __('Poll Options', 'wp-polls'), 'manage_polls', 'wp-polls/polls-options.php');
-		add_submenu_page('wp-polls/polls-manager.php', __('Poll Templates', 'wp-polls'), __('Poll Templates', 'wp-polls'), 'manage_polls', 'wp-polls/polls-templates.php');
-		add_submenu_page('wp-polls/polls-manager.php', __('Uninstall WP-Polls', 'wp-polls'), __('Uninstall WP-Polls', 'wp-polls'), 'manage_polls', 'wp-polls/polls-uninstall.php');
+		add_submenu_page('wp-polls', __('Add New', 'wp-polls'), __('Add New', 'wp-polls'), 'manage_polls', 'add', 'display_polls_add_page');
+		add_submenu_page('wp-polls', __('Options', 'wp-polls'), __('Options', 'wp-polls'), 'manage_polls', 'options', 'display_polls_options_page');
+		add_submenu_page('wp-polls', __('Templates', 'wp-polls'), __('Templates', 'wp-polls'), 'manage_polls', 'templates', 'display_polls_templates_page');
+		add_submenu_page('wp-polls', __('Uninstall', 'wp-polls'), __('Uninstall', 'wp-polls'), 'manage_polls', 'uninstall', 'display_polls_uninstall_page');
 	}
 }
 
@@ -227,9 +256,9 @@ function poll_scripts() {
 add_action('admin_enqueue_scripts', 'poll_scripts_admin');
 function poll_scripts_admin($hook_suffix) {
 	global $text_direction;
-	$poll_admin_pages = array('wp-polls/polls-manager.php', 'wp-polls/polls-add.php', 'wp-polls/polls-options.php', 'wp-polls/polls-templates.php', 'wp-polls/polls-uninstall.php');
-	if(in_array($hook_suffix, $poll_admin_pages)) {
-		wp_enqueue_style('wp-polls-admin', plugins_url('wp-polls/polls-admin-css.css'), false, '2.63', 'all');
+	wp_enqueue_style('wp-polls-admin', plugins_url('wp-polls/polls-admin-css.css'), false, '2.63', 'all');
+	$poll_admin_pages = array('toplevel_page_wp-polls', 'polls_page_add', 'polls_page_options', 'polls_page_templates', 'polls_page_uninstall');
+	if(in_array($hook_suffix, $poll_admin_pages)) {	
 		wp_enqueue_script('wp-polls-admin', plugins_url('wp-polls/polls-admin-js.js'), array('jquery'), '2.63', true);
 		wp_localize_script('wp-polls-admin', 'pollsAdminL10n', array(
 			'admin_ajax_url' => admin_url('admin-ajax.php', (is_ssl() ? 'https' : 'http')),

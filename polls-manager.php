@@ -16,6 +16,11 @@
 +----------------------------------------------------------------+
 */
 
+### Polls Table Name
+global $wpdb;
+$wpdb->pollsq = $wpdb->prefix.'pollsq';
+$wpdb->pollsa = $wpdb->prefix.'pollsa';
+$wpdb->pollsip = $wpdb->prefix.'pollsip';
 
 ### Check Whether User Can Manage Polls
 if(!current_user_can('manage_polls')) {
@@ -325,8 +330,7 @@ switch($mode) {
 		<!-- Manage Polls -->
 		<div class="wrap">
 			<div id="icon-wp-polls" class="icon32"><br /></div>
-			<h2><?php _e('Manage Polls', 'wp-polls'); ?></h2>
-			<h3><?php _e('Polls', 'wp-polls'); ?></h3>
+			<h2><?php _e('Polls', 'wp-polls'); ?> <a href="admin.php?page=add" class="add-new-h2"><?php _e('Add New', 'wp-polls'); ?></a></h2>
 			<br style="clear" />
 			<table class="widefat">
 				<thead>
