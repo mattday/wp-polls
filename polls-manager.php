@@ -1,18 +1,18 @@
 <?php
 /*
 +----------------------------------------------------------------+
-|																|
-|	WordPress Plugin: WP-Polls									|
-|	Copyright (c) 2012 Lester "GaMerZ" Chan						|
-|																|
-|	File Written By:											|
-|	- Lester "GaMerZ" Chan										|
-|	- http://lesterchan.net										|
-|																|
-|	File Information:											|
-|	- Manage Your Polls											|
-|	- wp-content/plugins/wp-polls/polls-manager.php				|
-|																|
+|																 |
+|	WordPress Plugin: WP-Polls									 |
+|	Copyright (c) 2012 Lester "GaMerZ" Chan						 |
+|																 |
+|	File Written By:											 |
+|	- Lester "GaMerZ" Chan										 |
+|	- http://lesterchan.net										 |
+|																 |
+|	File Information:											 |
+|	- Manage Your Polls											 |
+|	- wp-content/plugins/wp-polls/polls-manager.php				 |
+|																 |
 +----------------------------------------------------------------+
 */
 
@@ -330,7 +330,7 @@ switch($mode) {
 		<!-- Manage Polls -->
 		<div class="wrap">
 			<div id="icon-wp-polls" class="icon32"><br /></div>
-			<h2><?php _e('Polls', 'wp-polls'); ?> <a href="admin.php?page=add" class="add-new-h2"><?php _e('Add New', 'wp-polls'); ?></a></h2>
+			<h2><?php _e('Polls', 'wp-polls'); ?> <a href="admin.php?page=wp-polls_add-poll" class="add-new-h2"><?php _e('Add New', 'wp-polls'); ?></a></h2>
 			<br style="clear" />
 			<table class="widefat">
 				<thead>

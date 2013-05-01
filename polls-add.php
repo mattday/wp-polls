@@ -1,18 +1,18 @@
 <?php
 /*
 +----------------------------------------------------------------+
-|																							|
-|	WordPress Plugin: WP-Polls										|
-|	Copyright (c) 2012 Lester "GaMerZ" Chan									|
-|																							|
-|	File Written By:																	|
-|	- Lester "GaMerZ" Chan															|
-|	- http://lesterchan.net															|
-|																							|
-|	File Information:																	|
-|	- Add Poll																			|
-|	- wp-content/plugins/wp-polls/polls-add.php								|
-|																							|
+|																 |
+|	WordPress Plugin: WP-Polls                                   |
+|	Copyright (c) 2012 Lester "GaMerZ" Chan                      |
+|																 |
+|	File Written By:                                             |
+|	- Lester "GaMerZ" Chan                                       |
+|	- http://lesterchan.net                                      |
+|																 |
+|	File Information:                                            |
+|	- Add Poll                                                   |
+|	- wp-content/plugins/wp-polls/polls-add.php                  |
+|																 |
 +----------------------------------------------------------------+
 */
 
@@ -29,7 +29,7 @@ if(!current_user_can('manage_polls')) {
 
 ### Poll Manager
 $manage_page_name = 'admin.php?page=wp-polls';
-$page_name = 'admin.php?page=add';
+$page_name = 'admin.php?page=wp-polls_add-poll';
 
 ### Form Processing 
 if(!empty($_POST['do'])) {

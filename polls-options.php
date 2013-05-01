@@ -1,18 +1,18 @@
 <?php
 /*
 +----------------------------------------------------------------+
-|																							|
-|	WordPress Plugin: WP-Polls										|
-|	Copyright (c) 2012 Lester "GaMerZ" Chan									|
-|																							|
-|	File Written By:																	|
-|	- Lester "GaMerZ" Chan															|
-|	- http://lesterchan.net															|
-|																							|
-|	File Information:																	|
-|	- Configure Poll Options															|
-|	- wp-content/plugins/wp-polls/polls-options.php						|
-|																							|
+|                                                                |
+|	WordPress Plugin: WP-Polls                                   |
+|	Copyright (c) 2012 Lester "GaMerZ" Chan                      |
+|                                                                |
+|	File Written By:                                             |
+|	- Lester "GaMerZ" Chan                                       |
+|	- http://lesterchan.net                                      |
+|                                                                |
+|	File Information:                                            |
+|	- Configure Poll Options                                     |
+|	- wp-content/plugins/wp-polls/polls-options.php              |
+|                                                                |
 +----------------------------------------------------------------+
 */
 
@@ -28,7 +28,7 @@ if(!current_user_can('manage_polls')) {
 }
 
 ### Variables Variables Variables
-$page_name = 'admin.php?page=options';
+$page_name = 'admin.php?page=wp-polls_options';
 $id = (isset($_GET['id']) ? intval($_GET['id']) : 0);
 
 ### If Form Is Submitted

@@ -1,18 +1,18 @@
 <?php
 /*
 +----------------------------------------------------------------+
-|																							|
-|	WordPress Plugin: WP-Polls										|
-|	Copyright (c) 2012 Lester "GaMerZ" Chan									|
-|																							|
-|	File Written By:																	|
-|	- Lester "GaMerZ" Chan															|
-|	- http://lesterchan.net															|
-|																							|
-|	File Information:																	|
-|	- Uninstall WP-Polls																|
-|	- wp-content/plugins/wp-polls/polls-uninstall.php						|
-|																							|
+|                                                                |
+|	WordPress Plugin: WP-Polls                                   |
+|	Copyright (c) 2012 Lester "GaMerZ" Chan                      |
+|                                                                |
+|	File Written By:                                             |
+|	- Lester "GaMerZ" Chan                                       |
+|	- http://lesterchan.net                                      |
+|                                                                |
+|	File Information:                                            |
+|	- Uninstall WP-Polls                                         |
+|	- wp-content/plugins/wp-polls/polls-uninstall.php            |
+|                                                                |
 +----------------------------------------------------------------+
 */
 

@@ -80,10 +80,10 @@ function poll_menu() {
 		add_menu_page(__('Polls', 'wp-polls'), __('Polls', 'wp-polls'), 'manage_polls', 'wp-polls', 'display_polls_manager_page', 'div', '22.0');
 	}
 	if (function_exists('add_submenu_page')) {
-		add_submenu_page('wp-polls', __('Add New', 'wp-polls'), __('Add New', 'wp-polls'), 'manage_polls', 'add', 'display_polls_add_page');
-		add_submenu_page('wp-polls', __('Options', 'wp-polls'), __('Options', 'wp-polls'), 'manage_polls', 'options', 'display_polls_options_page');
-		add_submenu_page('wp-polls', __('Templates', 'wp-polls'), __('Templates', 'wp-polls'), 'manage_polls', 'templates', 'display_polls_templates_page');
-		add_submenu_page('wp-polls', __('Uninstall', 'wp-polls'), __('Uninstall', 'wp-polls'), 'manage_polls', 'uninstall', 'display_polls_uninstall_page');
+		add_submenu_page('wp-polls', __('Add New', 'wp-polls'), __('Add New', 'wp-polls'), 'manage_polls', 'wp-polls_add-poll', 'display_polls_add_page');
+		add_submenu_page('wp-polls', __('Options', 'wp-polls'), __('Options', 'wp-polls'), 'manage_polls', 'wp-polls_options', 'display_polls_options_page');
+		add_submenu_page('wp-polls', __('Templates', 'wp-polls'), __('Templates', 'wp-polls'), 'manage_polls', 'wp-polls_templates', 'display_polls_templates_page');
+		add_submenu_page('wp-polls', __('Uninstall', 'wp-polls'), __('Uninstall', 'wp-polls'), 'manage_polls', 'wp-polls_uninstall', 'display_polls_uninstall_page');
 	}
 }
 

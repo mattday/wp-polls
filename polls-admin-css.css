@@ -1,17 +1,17 @@
 /*
 +----------------------------------------------------------------+
-|																							|
-|	WordPress Plugin: WP-Polls										|
-|	Copyright (c) 2012 Lester "GaMerZ" Chan									|
-|																							|
-|	File Written By:																	|
-|	- Lester "GaMerZ" Chan															|
-|	- http://lesterchan.net															|
-|																							|
-|	File Information:																	|
-|	- Polls Admin CSS File															|
-|	- wp-content/plugins/wp-polls/polls-admin-css.css						|
-|																							|
+|                                                                |
+|	WordPress Plugin: WP-Polls                                   |
+|	Copyright (c) 2012 Lester "GaMerZ" Chan                      |
+|                                                                |
+|	File Written By:                                             |
+|	- Lester "GaMerZ" Chan                                       |
+|	- http://lesterchan.net                                      |
+|                                                                |
+|	File Information:                                            |
+|	- Polls Admin CSS File                                       |
+|	- wp-content/plugins/wp-polls/polls-admin-css.css            |
+|                                                                |
 +----------------------------------------------------------------+
 */
 
@@ -27,7 +27,7 @@
 	border: 1px solid #000000;
 }
 #icon-wp-polls.icon32 {
-	background: transparent url(images/admin_icon.png) no-repeat;
+	background: transparent url(images/admin_page_icon.png) no-repeat;
 }
 #adminmenu #toplevel_page_wp-polls div.wp-menu-image {
 	background:url(images/admin_menu_icon.png) no-repeat 0 -32px;
