@@ -26,13 +26,26 @@
 	height: 25px;
 	border: 1px solid #000000;
 }
+#wp-polls-table {
+	margin: 0px 8px 10px;
+}
+.wp-polls-total {
+	font-size: 18px;
+	text-align: right;
+	font-family: Georgia,"Times New Roman","Bitstream Charter",Times,serif;
+	padding-right: 6px;
+	padding-bottom: 6px;
+}
+div.inside {
+	overflow: hidden;
+}
 #icon-wp-polls.icon32 {
 	background: transparent url(images/admin_page_icon.png) no-repeat;
 }
 #adminmenu #toplevel_page_wp-polls div.wp-menu-image {
-	background:url(images/admin_menu_icon.png) no-repeat 0 -32px;
+	background: url(images/admin_menu_icon.png) no-repeat 0 -32px;
 }
 #adminmenu #toplevel_page_wp-polls:hover div.wp-menu-image,
 #adminmenu #toplevel_page_wp-polls.wp-has-current-submenu div.wp-menu-image {
-	background-position:0 0;
+	background-position: 0 0;
 }

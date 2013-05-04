@@ -43,10 +43,8 @@ $wpdb->pollsa = $wpdb->prefix.'pollsa';
 $wpdb->pollsip = $wpdb->prefix.'pollsip';
 
 
-### Function: Display Polls Manager Page
-function display_polls_manager_page() {
-	include 'polls-manager.php';
-}
+### Hook names for each wp-polls pages
+$polls_page_hook = array();
 
 
 ### Function: Display Polls Add Page
@@ -76,15 +74,63 @@ function display_polls_uninstall_page() {
 ### Function: Poll Administration Menu
 add_action('admin_menu', 'poll_menu');
 function poll_menu() {
+	global $polls_page_hook;
 	if (function_exists('add_menu_page')) {
-		add_menu_page(__('Polls', 'wp-polls'), __('Polls', 'wp-polls'), 'manage_polls', 'wp-polls', 'display_polls_manager_page', 'div', '22.0');
+		$polls_page_hook['main'] = add_menu_page(__('Polls', 'wp-polls'), __('Polls', 'wp-polls'), 'manage_polls', 'wp-polls', 'display_polls_manager_page', 'div', '22.0');
 	}
 	if (function_exists('add_submenu_page')) {
-		add_submenu_page('wp-polls', __('Add New', 'wp-polls'), __('Add New', 'wp-polls'), 'manage_polls', 'wp-polls_add-poll', 'display_polls_add_page');
-		add_submenu_page('wp-polls', __('Options', 'wp-polls'), __('Options', 'wp-polls'), 'manage_polls', 'wp-polls_options', 'display_polls_options_page');
-		add_submenu_page('wp-polls', __('Templates', 'wp-polls'), __('Templates', 'wp-polls'), 'manage_polls', 'wp-polls_templates', 'display_polls_templates_page');
-		add_submenu_page('wp-polls', __('Uninstall', 'wp-polls'), __('Uninstall', 'wp-polls'), 'manage_polls', 'wp-polls_uninstall', 'display_polls_uninstall_page');
+		$polls_page_hook['new'] = add_submenu_page('wp-polls', __('Add New', 'wp-polls'), __('Add New', 'wp-polls'), 'manage_polls', 'wp-polls_add-poll', 'display_polls_add_page');
+		$polls_page_hook['options'] = add_submenu_page('wp-polls', __('Options', 'wp-polls'), __('Options', 'wp-polls'), 'manage_polls', 'wp-polls_options', 'display_polls_options_page');
+		$polls_page_hook['templates'] = add_submenu_page('wp-polls', __('Templates', 'wp-polls'), __('Templates', 'wp-polls'), 'manage_polls', 'wp-polls_templates', 'display_polls_templates_page');
+		$polls_page_hook['uninstall'] = add_submenu_page('wp-polls', __('Uninstall', 'wp-polls'), __('Uninstall', 'wp-polls'), 'manage_polls', 'wp-polls_uninstall', 'display_polls_uninstall_page');
 	}
+}
+
+
+### Function: Enqueue inline script to make metaboxes work for specified page hook
+function add_polls_metabox_toggle_script($page_hook) {
+	global $polls_page_hook;
+	$polls_page_hook['current'] = $page_hook;
+	add_action( 'admin_footer', 'polls_metabox_toggle_script');
+	function polls_metabox_toggle_script() {
+		global $polls_page_hook;
+?>
+		<script type="text/javascript">
+			//<![CDATA[
+			jQuery(document).ready( function($) {
+				// close postboxes that should be closed
+				$('.if-js-closed').removeClass('if-js-closed').addClass('closed');
+				// postboxes setup
+				postboxes.add_postbox_toggles('<?php echo $polls_page_hook['current']; ?>');
+			});
+			//]]>
+		</script>	
+<?php
+	}
+}
+
+
+### Function: Register a callback for admin menu setup
+add_action('admin_menu', 'polls_admin_menu_setup'); 
+function polls_admin_menu_setup() {
+	global $polls_page_hook;
+	// Callback gets called prior to rendering page wp-polls
+	add_action('load-'.$polls_page_hook['main'], 'load_polls_manager_page');
+}
+
+
+### Function: Setup scripts and metaboxes before rendering polls page
+function load_polls_manager_page() {
+	global $polls_page_hook;
+	require_once('polls-manager.php');
+	// Scripts to allow drag/drop, expand/collapse and hide/show of boxes
+	wp_enqueue_script('common');
+	wp_enqueue_script('wp-lists');
+	wp_enqueue_script('postbox');
+	// Metaboxes (WordPress will handle showing/moving etc)
+	add_meta_box('polls-metaboxes-totals', 'Poll Totals', 'display_polls_metabox_totals', $polls_page_hook['main'], 'normal', 'core');
+	add_meta_box('polls-metaboxes-clear-logs', 'Clear Logs', 'display_polls_metabox_clear_logs', $polls_page_hook['main'], 'side', 'core');
+	add_polls_metabox_toggle_script($polls_page_hook['main']);	
 }
 
 
@@ -266,9 +312,9 @@ function poll_scripts_admin($hook_suffix) {
 			'text_delete_poll' => __('Delete Poll', 'wp-polls'),
 			'text_no_poll_logs' => __('No poll logs available.', 'wp-polls'),
 			'text_delete_all_logs' => __('Delete All Logs', 'wp-polls'),
-			'text_checkbox_delete_all_logs' => __('Please check the \\\'Yes\\\' checkbox if you want to delete all logs.', 'wp-polls'),
+			'text_checkbox_delete_all_logs' => __('Please check the \'Yes\' checkbox if you really want to delete all logs.', 'wp-polls'),
 			'text_delete_poll_logs' => __('Delete Logs For This Poll Only', 'wp-polls'),
-			'text_checkbox_delete_poll_logs' => __('Please check the \\\'Yes\\\' checkbox if you want to delete all logs for this poll ONLY.', 'wp-polls'),
+			'text_checkbox_delete_poll_logs' => __('Please check the \'Yes\' checkbox if you want to delete all logs for this poll ONLY.', 'wp-polls'),
 			'text_delete_poll_ans' => __('Delete Poll Answer', 'wp-polls'),
 			'text_open_poll' => __('Open Poll', 'wp-polls'),
 			'text_close_poll' => __('Close Poll', 'wp-polls'),
