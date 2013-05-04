@@ -131,11 +131,11 @@ if( isset($_POST['Submit']) && $_POST['Submit'] ) {
 	<div id="icon-wp-polls" class="icon32"><br /></div>
 	<h2><?php _e('Poll Options', 'wp-polls'); ?></h2>
 	<!-- Poll Bar Style -->
-	<h3><?php _e('Poll Bar Style', 'wp-polls'); ?></h3>
+	<h3><?php _e('Appearance', 'wp-polls'); ?></h3>
 	<table class="form-table">
 		 <tr>
-			<th scope="row" valign="top"><?php _e('Poll Bar Style', 'wp-polls'); ?></th>
-			<td colspan="2">
+			<th scope="row" valign="top"><?php _e('Bar Style', 'wp-polls'); ?></th>
+			<td>
 				<?php
 					$pollbar = get_option('poll_bar');
 					$pollbar_url = plugins_url('wp-polls/images');
@@ -165,21 +165,30 @@ if( isset($_POST['Submit']) && $_POST['Submit'] ) {
 			</td>
 		</tr>
 		<tr>
-			<th scope="row" valign="top"><?php _e('Poll Bar Background', 'wp-polls'); ?></th>
-			<td width="10%" dir="ltr">#<input type="text" id="poll_bar_bg" name="poll_bar_bg" value="<?php echo $pollbar['background']; ?>" size="6" maxlength="6" onblur="update_pollbar('background');" /></td>
-			<td><div id="wp-polls-pollbar-bg" style="background-color: #<?php echo $pollbar['background']; ?>;"></div></td>
+			<th scope="row" valign="top"></th>
+			<td>
+			<div style="width:400px;">
+				<table id="wp-polls-css-table">
+					<tr>
+						<th scope="row" valign="top"><?php _e('Background', 'wp-polls'); ?></th>
+						<td width="40%" dir="ltr"><input type="text" id="poll_bar_bg" name="poll_bar_bg" value="<?php echo $pollbar['background']; ?>" size="6" maxlength="6" onblur="update_pollbar('background');" /></td>
+						<td><div id="wp-polls-pollbar-bg" style="background-color: #<?php echo $pollbar['background']; ?>;"></div></td>
+					</tr>
+					<tr>
+						<th scope="row" valign="top"><?php _e('Border', 'wp-polls'); ?></th>
+						<td width="40%" dir="ltr"><input type="text" id="poll_bar_border" name="poll_bar_border" value="<?php echo $pollbar['border']; ?>" size="6" maxlength="6" onblur="update_pollbar('border');" /></td><td>
+						<div id="wp-polls-pollbar-border" style="background-color: #<?php echo $pollbar['border']; ?>;"></div></td>
+					</tr>
+					<tr>
+						<th scope="row" valign="top"><?php _e('Height', 'wp-polls'); ?></th>
+						<td dir="ltr"><input type="text" id="poll_bar_height" name="poll_bar_height" value="<?php echo $pollbar['height']; ?>" size="2" maxlength="2" onblur="update_pollbar('height');" />px</td><td></td>
+					</tr>
+				</table>
+				</div>
+			</td>
 		</tr>
 		<tr>
-			<th scope="row" valign="top"><?php _e('Poll Bar Border', 'wp-polls'); ?></th>
-			<td width="10%" dir="ltr">#<input type="text" id="poll_bar_border" name="poll_bar_border" value="<?php echo $pollbar['border']; ?>" size="6" maxlength="6" onblur="update_pollbar('border');" /></td>
-			<td><div id="wp-polls-pollbar-border" style="background-color: #<?php echo $pollbar['border']; ?>;"></div></td>
-		</tr>
-		<tr>
-			<th scope="row" valign="top"><?php _e('Poll Bar Height', 'wp-polls'); ?></th>
-			<td colspan="2" dir="ltr"><input type="text" id="poll_bar_height" name="poll_bar_height" value="<?php echo $pollbar['height']; ?>" size="2" maxlength="2" onblur="update_pollbar('height');" />px</td>
-		</tr>
-		<tr>
-			<th scope="row" valign="top"><?php _e('Your poll bar will look like this', 'wp-polls'); ?></th>
+			<th scope="row" valign="top"><?php _e('Bar Preview', 'wp-polls'); ?></th>
 			<td colspan="2">
 				<?php
 					if($pollbar['style'] == 'use_css') {

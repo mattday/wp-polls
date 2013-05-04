@@ -341,7 +341,7 @@ function display_polls_manager_page() {
 				<div id="icon-wp-polls" class="icon32"><br /></div>
 				<h2><?php _e('Polls', 'wp-polls'); ?> <a href="admin.php?page=wp-polls_add-poll" class="add-new-h2"><?php _e('Add New', 'wp-polls'); ?></a></h2>
 				<br style="clear" />
-				<div id="wp-polls-table">
+				<div id="wp-polls-polls-table">
 					<table class="widefat">
 						<thead>
 							<tr>
