@@ -303,7 +303,7 @@ function display_polls_manager_page() {
 						</td>
 					</tr>
 				</table>
-				<p style="text-align: center;">
+				<p style="margin-top:32px;">
 					<input type="submit" name="do" value="<?php _e('Save Changes', 'wp-polls'); ?>" class="button-primary" />&nbsp;&nbsp;
 				<?php 
 					if($poll_active == 1) { 

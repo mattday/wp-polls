@@ -53,12 +53,6 @@ function display_polls_add_page() {
 }
 
 
-### Function: Display Polls Options Page
-function display_polls_options_page() {
-	include 'polls-options.php';
-}
-
-
 ### Function: Display Polls Templates Page
 function display_polls_templates_page() {
 	include 'polls-templates.php';
@@ -116,6 +110,7 @@ function polls_admin_menu_setup() {
 	global $polls_page_hook;
 	// Callback gets called prior to rendering page wp-polls
 	add_action('load-'.$polls_page_hook['main'], 'load_polls_manager_page');
+	add_action('load-'.$polls_page_hook['options'], 'load_polls_options_page');
 }
 
 
@@ -131,6 +126,11 @@ function load_polls_manager_page() {
 	add_meta_box('polls-metaboxes-totals', 'Poll Totals', 'display_polls_metabox_totals', $polls_page_hook['main'], 'normal', 'core');
 	add_meta_box('polls-metaboxes-clear-logs', 'Clear Logs', 'display_polls_metabox_clear_logs', $polls_page_hook['main'], 'side', 'core');
 	add_polls_metabox_toggle_script($polls_page_hook['main']);	
+}
+
+## Function: Include functions for polls options page
+function load_polls_options_page() {
+	require_once('polls-options.php');
 }
 
 
@@ -259,7 +259,7 @@ function poll_head_scripts() {
 		echo "\t".'font-size: '.($pollbar['height']-2).'px;'."\n";
 		echo "\t".'line-height: '.$pollbar['height'].'px;'."\n";
 		echo "\t".'height: '.$pollbar['height'].'px;'."\n";
-		echo "\t".'background-image: url(\''.plugins_url('wp-polls/images/'.$pollbar['style'].'/pollbg.gif').'\');'."\n";
+		echo "\t".'background-image: url(\''.plugins_url($pollbar['style']).'\');'."\n";
 		echo "\t".'border: 1px solid #'.$pollbar['border'].';'."\n";
 		echo '}'."\n";
 	}
@@ -1788,7 +1788,7 @@ function create_poll_table() {
 	maybe_add_column($wpdb->pollsip, 'pollip_userid', "ALTER TABLE $wpdb->pollsip ADD pollip_userid INT( 10 ) NOT NULL DEFAULT '0';");
 	add_option('poll_archive_url', site_url('pollsarchive'));
 	// Database Upgrade For WP-Polls 2.13
-	add_option('poll_bar', array('style' => 'default', 'background' => 'd8e1eb', 'border' => 'c8c8c8', 'height' => 8));
+	add_option('poll_bar', array('style' => 'wp-polls/images/bars/default.gif', 'background' => 'd8e1eb', 'border' => 'c8c8c8', 'height' => 8));
 	// Database Upgrade For WP-Polls 2.14
 	maybe_add_column($wpdb->pollsq, 'pollq_expiry', "ALTER TABLE $wpdb->pollsq ADD pollq_expiry varchar(20) NOT NULL default '';");
 	add_option('poll_close', 1);
@@ -1815,8 +1815,18 @@ function create_poll_table() {
 	// Database Upgrade For WP-Polls 2.50
 	delete_option('poll_archive_show');
 	// Database Upgrade For WP-Polls 2.61
-	$wpdb->query("ALTER TABLE $wpdb->pollsip ADD INDEX pollip_ip (pollip_ip);");
-	$wpdb->query("ALTER TABLE $wpdb->pollsip ADD INDEX pollip_qid (pollip_qid);");
+	$wpdb->query("ALTER TABLE $wpdb->pollsip ADD INDEX pollip_ip (pollip_ip);");	// TODO This line generates error
+	$wpdb->query("ALTER TABLE $wpdb->pollsip ADD INDEX pollip_qid (pollip_qid);");	// TODO This line generates error
+	// Database Upgrade For WP-Polls 2.7 (changed bar image handling to allow user uploads)
+	$poll_bar = get_option('poll_bar');
+	if ($poll_bar['style'] == "default") {
+		$poll_bar['style'] == "wp-polls/images/bars/default.gif";
+		update_option('poll_bar',$poll_bar);
+	}
+	else if ($poll_bar['style'] == "default_gradient") {
+		$poll_bar['style'] == "wp-polls/images/bars/default_gradient.gif";
+		update_option('poll_bar',$poll_bar);
+	}
 	// Set 'manage_polls' Capabilities To Administrator
 	$role = get_role('administrator');
 	if(!$role->has_cap('manage_polls')) {

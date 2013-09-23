@@ -30,7 +30,7 @@ if(!current_user_can('manage_polls')) {
 
 
 ### Variables Variables Variables
-$page_name = 'admin.php?page=uninstall';
+$page_name = 'admin.php?page=wp-polls_uninstall';
 $mode = (isset($_GET['mode']) ? trim($_GET['mode']) : '');
 $polls_tables = array($wpdb->pollsq, $wpdb->pollsa, $wpdb->pollsip);
 $polls_settings = array('poll_template_voteheader', 'poll_template_votebody', 'poll_template_votefooter', 'poll_template_resultheader', 'poll_template_resultbody', 'poll_template_resultbody2', 'poll_template_resultfooter', 'poll_template_resultfooter2',  'poll_template_disable', 'poll_template_error', 'poll_currentpoll', 'poll_latestpoll', 'poll_archive_perpage', 'poll_ans_sortby', 'poll_ans_sortorder', 'poll_ans_result_sortby', 'poll_ans_result_sortorder', 'poll_logging_method', 'poll_allowtovote', 'poll_archive_show', 'poll_archive_url', 'poll_bar', 'poll_close', 'poll_ajax_style', 'poll_template_pollarchivelink', 'widget_polls', 'poll_archive_displaypoll', 'poll_template_pollarchiveheader', 'poll_template_pollarchivefooter', 'poll_cookielog_expiry', 'widget_polls-widget');
@@ -63,6 +63,13 @@ if(!empty($_POST['do'])) {
 					}
 				}
 				echo '</p>';
+				$user_data_dir = WP_PLUGIN_DIR."/wp-polls-data/";
+				if (is_dir($user_data_dir)) {
+					del_tree($user_data_dir);
+					echo '<font color="green">';
+					printf(__('Directory \'%s\' has been deleted.', 'wp-polls'), "<strong><em>{$user_data_dir}</em></strong>");
+					echo '</font><br />';
+				}
 				echo '</div>'; 
 				$mode = 'end-UNINSTALL';
 			}
@@ -106,6 +113,7 @@ switch($mode) {
 			<tr>
 				<th><?php _e('WordPress Options', 'wp-polls'); ?></th>
 				<th><?php _e('WordPress Tables', 'wp-polls'); ?></th>
+				<th><?php _e('Uploaded Files', 'wp-polls'); ?></th>
 			</tr>
 		</thead>
 		<tr>
@@ -127,6 +135,22 @@ switch($mode) {
 				?>
 				</ol>
 			</td>
+			<td valign="top">
+				<ol>
+				<?php
+				$bar_path = WP_PLUGIN_DIR."/wp-polls-data/bars/";
+				$handle = @opendir($bar_path);
+				if ($handle) {
+					while (false !== ($filename = readdir($handle))) {
+						if(!is_dir($bar_path.'/'.$filename)) {
+							echo '<li>'.$filename.'</li>'."\n";
+						}
+					}
+					closedir($handle);
+				}
+				?>
+				</ol>
+			</td>
 		</tr>
 	</table>
 	<p style="text-align: center;">
@@ -138,3 +162,11 @@ switch($mode) {
 </form>
 <?php
 } // End switch($mode)
+
+### Function: Delete directory and any contents
+function del_tree($dirPath) { 
+	foreach(new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dirPath, FilesystemIterator::SKIP_DOTS), RecursiveIteratorIterator::CHILD_FIRST) as $path) {
+		$path->isFile() ? unlink($path->getPathname()) : rmdir($path->getPathname());
+	}
+	rmdir($dirPath);
+}

@@ -20,7 +20,7 @@
 #wp-polls-pollbar-border {
 	width: 25px;
 	height: 25px;
-	border: 1px solid #000000;
+	border: 1px solid #999;
 	display:inline-block;
 }
 #wp-polls-polls-table {
@@ -28,7 +28,6 @@
 }
 #wp-polls-css-table {
 	border:1px solid #DDD;
-	margin-left:22px;
 }
 #wp-polls-css-table th {
 	vertical-align: top;
